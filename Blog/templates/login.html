@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block resource %}
+    <style>
+        .regist{
+            width: 50%;
+            margin: 100px auto !important;
+        }
+        .login{
+            width: 90%;
+            height:35px;
+            margin:10px 5% !important;
+            border:1px solid grey;
+            border-radius:3px ;
+        }
+    .butt{
+        background: greenyellow;
+    }
+    </style>
+    <script src="{% static 'js/login.js'%}"></script>
+{% endblock %}
+{% block page_content %}
+    <div class="container">
+        <div class="panel panel-primary regist">
+            <div class="panel-heading">
+                <h3 class="panel-title">登录</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="{% url 'blog:login' %}">
+                    {% csrf_token %}
+                    <input class="login" type="text" name="username" placeholder="请输入用户名"><br>
+                    <input class="login" type="password" name="password" placeholder="请输入密码"><br>
+                    <input class="butt login" type="submit" value="登录">
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

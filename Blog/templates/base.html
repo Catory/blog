@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    {% block resource %}
+
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand active" href="#">CatoryBlog</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'blog:sendposts' %}">发帖 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#"></a></li>
+
+                </ul>
+                <form method="post" class="navbar-form navbar-left" action="{% url 'blog:search' %}">
+{#                    <div class="form-group">#}
+                    {% csrf_token %}
+                        <input type="text" name="search" placeholder="请输入查找内容">
+{#                    </div>#}
+{#                    <a href="{% url 'blog:search' %}" type="submit" class="btn btn-default">搜索</a>#}
+                    <input type="submit" value="搜索">
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if request.session.user %}
+
+                        <li><a href="{% url 'blog:logout' %}">退出</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">{{ request.session.user }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">个人中心</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">修改密码</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">修改邮箱</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">上传头像</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'blog:login' %}">登录</a></li>
+                        <li><a href="{% url 'blog:register' %}">注册</a></li>
+                    {% endif %}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    {% block page_content %}
+
+    {% endblock %}
+{% endblock %}
+
+</body>
+</html>

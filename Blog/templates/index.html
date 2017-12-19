@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block resource %}
+    <style>
+    .post{
+        width:50%;
+        height: 120px;
+    }
+    </style>
+{% endblock %}
+
+{% block page_content %}
+    <h3>welcome to my blog</h3>
+    {% for post in posts %}
+    <div class="panel panel-default post">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ post.ptitle }}</h3>
+        </div>
+        <div class="panel-body">
+            <a href="{% url 'blog:detail' post.id %}">{{ post.pcontent }}</a>
+        </div>
+    </div>
+    {% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block resource %}
+    <style>
+        .regist{
+            width: 50%;
+            margin: 100px auto !important;
+        }
+        .login{
+            width: 87%;
+            height:35px;
+            margin:10px 5% !important;
+            border:1px solid grey;
+            border-radius:3px ;
+        }
+        .star{
+            color: red;
+        }
+        .note{
+            margin:5px 5% !important;
+        }
+    .butt{
+        background: greenyellow;
+    }
+    </style>
+    <script src="{% static 'js/register.js'%}"></script>
+{% endblock %}
+{% block page_content %}
+    <div class="container">
+        <div class="panel panel-primary regist">
+            <div class="panel-heading">
+                <h3 class="panel-title">注册</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="{% url 'blog:doregister' %}">
+                    {% csrf_token %}
+                    <input class="login" id="username" type="text" name="username" placeholder="请输入用户名"><span class="star">*</span><br>
+                    <span class="note">注：20个字符以内，注意区分大小写</span>
+                    <input class="login" id="email" type="text" name="email" placeholder="请输入邮箱"><span class="star">*</span><br>
+                    <input class="login" id="pwd" type="password" name="password" placeholder="请输入密码"><span class="star">*</span><br>
+                    <span class="note">注：密码必须至少包含8个字符，不能全部为数字</span>
+                    <input class="login" id='cpwd' type="password" name="cpassword" placeholder="再次确认密码"><span class="star">*</span><br>
+                    <input class="butt login" type="submit" value="注册">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

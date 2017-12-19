@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block resource %}
+    <style>
+        .title{
+            width: 40%;
+            height: 50px;
+            margin: 10px auto;
+        }
+        .content {
+            width: 70%;
+            height: 200px;
+            margin: 30px auto;
+        }
+
+        .butt {
+            width: 50px;
+            height: 25px;
+            background: deepskyblue;
+        }
+    </style>
+{% endblock %}
+{% block page_content %}
+    <div class="container">
+        <form method="post" action="{% url 'blog:sendposts' %}">
+            {% csrf_token %}
+            <textarea class="title" type="text" name="title" placeholder="标题"></textarea><br>
+            <textarea class="content" type="text" name="content" placeholder="说点什么。。。"></textarea><br>
+            <input class="butt" type="submit" value="发表">
+        </form>
+    </div>
+{% endblock %}

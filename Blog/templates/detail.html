@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block resource %}
+    <style>
+        .content {
+            width: 60%;
+            height: 100px;
+            margin: 30px auto;
+        }
+
+        .butt {
+            width: 50px;
+            height: 25px;
+            background: deepskyblue;
+        }
+        .comment{
+            width:50%;
+            height: 50px;
+            margin-left:50px ;
+        }
+    .post{
+        width:50%;
+        height:120px;
+    }
+    </style>
+{% endblock %}
+{% block page_content %}
+
+    <div class="panel panel-default post">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ post.ptitle }}</h3>
+        </div>
+        <div class="panel-body">
+            {{ post.pcontent }}
+        </div>
+    </div>
+
+    {% if reposts %}
+        <h3>全部评论</h3>
+
+        {% for repost in reposts %}
+            <div class="panel panel-default comment">
+                <div class="panel-body">
+                    <span>{{ repost.puser.username }}说：</span>
+                    {{ repost.pcontent }}
+                </div>
+
+            </div>
+        {% endfor %}
+    {% endif %}
+    <br>
+    <h3>我也说两句</h3>
+
+    <form method="post" action="{% url 'blog:cposts' post.id %}">
+        {% csrf_token %}
+        <textarea class="content" type="text" name="content" placeholder="说出我的心声"></textarea><br>
+        <input class="butt" type="submit" value="评论">
+    </form>
+{% endblock %}
