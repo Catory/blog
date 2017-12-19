@@ -4,7 +4,7 @@ $(function () {
         var email = $('#email').val();
         var password = $('#pwd').val();
         var cpassword=$('#cpwd').val();
-        var url = 'http://127.0.0.1:8000/blog/registhandler/';
+        url = 'http://127.0.0.1:8000/blog/registhandler/';
         $.post(url,{'username':username,'email':email,'password':password,'cpassword':cpassword},function (status) {
             if(status.result == 'username_not_standard'){
                 $('#username').css('border-color','red');
@@ -20,6 +20,7 @@ $(function () {
                 $('#username').val('');
             }
             else{
+                $('#username').css('border-color','black');
                 $('.note').first().text('ok');
                 $('.note').first().css('color','green');
             }
@@ -42,7 +43,7 @@ $(function () {
             }
 
             else {
-
+                $('#pwd').css('border-color', 'black');
                 $('.note').last().text('ok');
                 $('.note').last().css('color', 'green');
             }
@@ -65,11 +66,12 @@ $(function () {
                 $('#pwd').val('');
             }
             else {
-
+                $('#pwd').css('border-color', 'black');
                 $('.note').last().text('ok');
                 $('.note').last().css('color', 'green');
             }
         });
 
-    })
+    });
+
 });

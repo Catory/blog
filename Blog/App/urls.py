@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^cpost/(\d+)/',views.cposts,name='cposts'),
     url(r'^search/',views.search,name='search'),
     url(r'^registhandler/',views.register_handler,name='registhandler'),
+    url(r'^loginhandler/',views.login_handler,name='loginhandler'),
 
 ]

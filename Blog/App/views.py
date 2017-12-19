@@ -27,9 +27,8 @@ def do_register(request):
             u.save()
             request.session['user'] = u.username
             request.session.set_expiry(600)
-            return HttpResponse('注册成功')
-        else:
-            return HttpResponse('密码两次不一致，请重新输入')
+            return render(request,'registr_jump.html')
+
 
 def login(request):
     if  request.method == 'POST':
@@ -49,7 +48,7 @@ def login(request):
 
 def logout(request):
     del request.session['user']
-    return HttpResponse('成功退出')
+    return HttpResponseRedirect(reverse('blog:index'))
 
 
 def sendposts(request):
@@ -98,7 +97,6 @@ def search(request):
 @csrf_exempt
 def register_handler(request):
     username = request.POST.get('username')
-    print('1111111111111111',username)
     if len(username) > 20 or not username:
         context = {'result':'username_not_standard'}
         return JsonResponse(context)
@@ -107,20 +105,33 @@ def register_handler(request):
         return JsonResponse(context)
     else:
         password = request.POST.get('password')
-
-        if len(password) >= 8 and re.match(r'\w',password):
-            u = User()
-            u.username = request.POST.get('username')
-            u.email = request.POST.get('email')
-            u.password = request.POST.get('password')
+        if len(password) >= 8 and re.findall(r'\D+',password):
             if request.POST.get('password') == request.POST.get('cpassword'):
-                u.save()
-                request.session['user'] = u.username
-                request.session.set_expiry(600)
-                return render(request,'registr_jump.html')
+
+                context = {'result': 'success'}
+                return JsonResponse(context)
             else:
                 context = {'result': 'password_not_same'}
                 return JsonResponse(context)
+
         else:
             context = {'result':'password_not_standard'}
             return JsonResponse(context)
+
+@csrf_exempt
+def login_handler(request):
+    username = request.POST.get('username')
+    print(username,'1111111111')
+    password = request.POST.get('password')
+    print(password,'22222222')
+    if User.objects.filter(username=username).exists():
+
+        if User.objects.filter(username=username)[0].check_password(password):
+            context = {'status':'success'}
+            return JsonResponse(context)
+        else:
+            context = {'status': 'pwdFalse'}
+            return JsonResponse(context)
+    else:
+        context = {'status': 'usernameFalse'}
+        return JsonResponse(context)
