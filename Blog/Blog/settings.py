@@ -25,7 +25,7 @@ SECRET_KEY = '8l6h#_%$xf12t!*(9gn*2!y5spgi3zn0tikyl(s6uvw3ahxsx+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.middleware.MyMiddleware',
 ]
 
 ROOT_URLCONF = 'Blog.urls'
@@ -130,3 +131,60 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
 ]
 
+LOGGING = {
+      'version': 1,
+      'disable_existing_loggers': False,
+      'formatters': {
+          'simple': {
+              'format': '%(asctime)s %(module)s.%(funcName)s: %(message)s',
+              'datefmt': '%Y-%m-%d %H:%M:%S',
+          },
+          'verbose': {
+              'format': '%(asctime)s %(levelname)s [%(process)d-%(threadName)s] %(module)s.%(funcName)s line %(lineno)d: %(message)s',
+              'datefmt': '%Y-%m-%d %H:%M:%S',
+          }
+      },
+
+      'handlers': {
+          'inf': {
+              'class': 'logging.handlers.TimedRotatingFileHandler',
+              'filename': '/home/rock/learngit/blog/Blog/static/file/clientip.log',
+              'when': 'W0',  # 每周一切割日志
+              'backupCount': 5,
+              'formatter': 'simple',
+              'level': 'DEBUG' if DEBUG else 'INFO',
+          },
+          'err': {
+              'class': 'logging.handlers.TimedRotatingFileHandler',
+              'filename': '/home/rock/learngit/blog/Blog/static/file/error.log',
+              'when': 'D',  # 每天切割日志
+              'backupCount': 5,
+              'formatter': 'verbose',
+              'level': 'WARNING',
+          }
+      },
+
+      'loggers': {
+          'inf': {
+              'handlers': ['inf'],
+              'level': 'DEBUG',
+              'propagate': True,
+          },
+          'err': {
+              'handlers': ['err'],
+              'level': 'DEBUG',
+              'propagate': True,
+          }
+      }
+  }
+
+CACHES = {
+      "default": {
+          "BACKEND": "django_redis.cache.RedisCache",
+          "LOCATION": "redis://127.0.0.1:6379/1",
+          "OPTIONS": {
+              "CLIENT_CLASS": "django_redis.client.DefaultClient",
+              "PICKLE_VERSION": -1,
+          }
+      }
+  }
