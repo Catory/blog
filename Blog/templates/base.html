@@ -30,7 +30,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'blog:sendposts' %}">发帖 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#"></a></li>
+                    <li><a href="#">我的帖子</a></li>
+                    <li><a href="{% url 'blog:mycoll' %}">我的收藏</a></li>
 
                 </ul>
                 <form method="post" class="navbar-form navbar-left" action="{% url 'blog:search' %}">

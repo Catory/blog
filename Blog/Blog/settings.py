@@ -188,3 +188,10 @@ CACHES = {
           }
       }
   }
+
+EMAIL_HOST = "smtp.163.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "qydonghuan@163.com"
+EMAIL_HOST_PASSWORD = "dong1023"
+EMAIL_USE_TLS = False
+EMAIL_FROM = "qydonghuan@163.com"

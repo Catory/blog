@@ -3,7 +3,7 @@ from App import views
 
 
 urlpatterns = [
-    url(r'^index/',views.index,name='index'),
+    url(r'^index/(\d+)',views.index,name='index'),
     url(r'^register/',views.register,name='register'),
     url(r'^doregister/',views.do_register,name='doregister'),
     url(r'^login/',views.login,name='login'),
@@ -14,5 +14,8 @@ urlpatterns = [
     url(r'^search/',views.search,name='search'),
     url(r'^registhandler/',views.register_handler,name='registhandler'),
     url(r'^loginhandler/',views.login_handler,name='loginhandler'),
+    url(r'^useractivate/(.*?)/',views.user_activate,name='useractivate'),
+    url(r'^collect/(\d+)/',views.coll_post,name='collect'),
+    url(r'^mycoll',views.mycoll,name='mycoll'),
 
 ]
