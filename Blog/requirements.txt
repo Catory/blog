@@ -46,7 +46,7 @@ Mako==1.0.7
 MarkupSafe==1.0
 olefile==0.44
 parsel==1.2.0
-Pillow==4.1.1
+Pillow==9.0.1
 pyasn1==0.4.2
 pyasn1-modules==0.2.1
 pycparser==2.18
