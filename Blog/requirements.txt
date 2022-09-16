@@ -42,7 +42,7 @@ incremental==17.5.0
 itsdangerous==0.24
 Jinja2==2.9.6
 lxml==4.1.1
-Mako==1.0.7
+Mako==1.2.2
 MarkupSafe==1.0
 olefile==0.44
 parsel==1.2.0
